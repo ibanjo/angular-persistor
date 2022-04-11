@@ -1,9 +1,12 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": "89195bbc-86ae-4209-ba19-de57139c0ee7"
+  },
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-persistor": {
+    "ngx-persistor-test-app": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -100,7 +103,38 @@
           }
         }
       }
+    },
+    "ngx-persistor": {
+      "projectType": "library",
+      "root": "projects/ngx-persistor",
+      "sourceRoot": "projects/ngx-persistor/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ngx-persistor/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ngx-persistor/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ngx-persistor/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ngx-persistor/src/test.ts",
+            "tsConfig": "projects/ngx-persistor/tsconfig.spec.json",
+            "karmaConfig": "projects/ngx-persistor/karma.conf.js"
+          }
+        }
+      }
     }
   },
-  "defaultProject": "ngx-persistor"
+  "defaultProject": "ngx-persistor-test-app"
 }
